@@ -2,12 +2,13 @@
 using ECommerce.Enums;
 using ECommerce.Helper;
 using ECommerce.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Repository
 {
     public interface IUserRegisterRepo
     {
-        UserRegistrationStatus RegisterUser(string name, string email, string password);
+        Task<UserRegistrationStatus> RegisterUser(string name, string email, string password);
     }
     public class UserRegisterRepo : IUserRegisterRepo
     {
@@ -19,9 +20,9 @@ namespace ECommerce.Repository
             _context = context;
         }
 
-        public UserRegistrationStatus RegisterUser(string name, string email, string password)
+        public async Task<UserRegistrationStatus> RegisterUser(string name, string email, string password)
         {
-                User existingUser = _context.Users.Where(t => t.Email == email).FirstOrDefault();
+                User existingUser = await _context.Users.Where(t => t.Email == email).FirstOrDefaultAsync();
                 if (existingUser != null) return UserRegistrationStatus.EmailAlreadyExists;
                 PasswordHashHelper passwordHashHelper = new PasswordHashHelper();
                 var hashedPassword = passwordHashHelper.PasswordToHash(password);

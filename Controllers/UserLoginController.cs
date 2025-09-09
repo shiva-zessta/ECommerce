@@ -22,7 +22,7 @@ namespace ECommerce.Controllers
         }
         [HttpPost]
         [Route("Login")]
-        public async Task<IActionResult>  UserLogin([FromBody] UserLoginRequestDto userLoginReqDto)
+        public async Task<IActionResult> UserLogin([FromBody] UserLoginRequestDto userLoginReqDto)
         {
             if (!ModelState.IsValid)
             {
@@ -57,15 +57,26 @@ namespace ECommerce.Controllers
 
         [HttpPost]
         [Route("Register")]
-        public UserRegistrationStatus UserRegister([FromBody] UserRegisterDto userRegisterReqDto)
+        public async Task<IActionResult> UserRegister([FromBody] UserRegisterDto userRegisterReqDto)
         {
-            var result = _userRegisterRepo.RegisterUser(userRegisterReqDto.Name, userRegisterReqDto.Email, userRegisterReqDto.Password);
-            if (result == UserRegistrationStatus.Error)
+            var result = await _userRegisterRepo.RegisterUser(userRegisterReqDto.Name, userRegisterReqDto.Email, userRegisterReqDto.Password);
+            if (result == UserRegistrationStatus.Error )
             {
-                return result;
+                return NotFound(result);
 
+            } else if (result == UserRegistrationStatus.EmailAlreadyExists)
+            {
+                ResponseHandler<UserRegistrationStatus, UserRegistrationStatus> resErrHandler = new ResponseHandler<UserRegistrationStatus, UserRegistrationStatus>();
+                resErrHandler.Message = "Email already exists";
+                resErrHandler.Status = UserRegistrationStatus.EmailAlreadyExists;
+                resErrHandler.Data = result;
+                return Ok(resErrHandler);
             }
-            return result;
+            ResponseHandler<UserRegistrationStatus, UserRegistrationStatus> resHandler = new ResponseHandler<UserRegistrationStatus, UserRegistrationStatus>();
+            resHandler.Message = "Register Successful";
+            resHandler.Status = UserRegistrationStatus.Success;
+            resHandler.Data = result;
+            return Ok(resHandler);
         }
 
     }
