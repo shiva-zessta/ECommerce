@@ -17,6 +17,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IUserLoginRepo, UserLoginRepo>();
 builder.Services.AddTransient<IUserRegisterRepo, UserRegisterRepo>();
+builder.Services.AddTransient<ICategoryRepo, CategoryRepo>();
 
 var app = builder.Build();
 
