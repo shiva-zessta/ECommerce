@@ -35,12 +35,19 @@ namespace ECommerce.Models
             {
                 t.HasKey(e => e.Id);
                 t.Property(e => e.Id).ValueGeneratedOnAdd();
+                t.HasMany(c => c.Products)
+                .WithOne(p => p.Category)
+                .HasForeignKey(p => p.CategoryId);
             }
             );
             modelBuilder.Entity<Product>(t =>
             {
+                
                 t.HasKey(e => e.Id);
                 t.Property(e => e.Id).ValueGeneratedOnAdd();
+                t.HasOne(p => p.Category)
+                    .WithMany(c => c.Products)
+                    .HasForeignKey(p => p.CategoryId);
             }
             );
         }
