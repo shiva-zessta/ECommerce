@@ -9,9 +9,10 @@ namespace ECommerce.Mapper
         public MappingProfile()
         {
             CreateMap<User, UserDto>();
+            CreateMap<Category, CategoryDto>();
             CreateMap<Product, ProductDto>()
                 .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(source => source.Category.Name));
-            CreateMap<Category, CategoryDto>()
+            CreateMap<Category, CategoryProductListDto>()
                 .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products));
             CreateMap<Product, CategoryProductDto>()
                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

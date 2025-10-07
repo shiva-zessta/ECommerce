@@ -1,4 +1,5 @@
 using ECommerce.Mapper;
+using ECommerce.Middelware;
 using ECommerce.Models;
 using ECommerce.Repository;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerce API V1");
     });
 }
+app.UseMiddleware<ResponseHandlerMiddleware>();
 
 app.UseHttpsRedirection();
 

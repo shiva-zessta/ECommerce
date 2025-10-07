@@ -66,11 +66,12 @@ namespace ECommerce.Controllers
 
             } else if (result == UserRegistrationStatus.EmailAlreadyExists)
             {
-                ResponseHandler<UserRegistrationStatus, UserRegistrationStatus> resErrHandler = new ResponseHandler<UserRegistrationStatus, UserRegistrationStatus>();
-                resErrHandler.Message = "Email already exists";
-                resErrHandler.Status = UserRegistrationStatus.EmailAlreadyExists;
-                resErrHandler.Data = result;
-                return Ok(resErrHandler);
+                ResponseHandler<UserRegistrationStatus, UserRegistrationStatus> resAlreadyExistsHandler = new ResponseHandler<UserRegistrationStatus, UserRegistrationStatus>();
+                resAlreadyExistsHandler.Message = "Email already exists";
+                resAlreadyExistsHandler.Status = UserRegistrationStatus.EmailAlreadyExists;
+                resAlreadyExistsHandler.Data = result;
+                resAlreadyExistsHandler.Code = 403;
+                return NotFound(resAlreadyExistsHandler);
             }
             ResponseHandler<UserRegistrationStatus, UserRegistrationStatus> resHandler = new ResponseHandler<UserRegistrationStatus, UserRegistrationStatus>();
             resHandler.Message = "Register Successful";
@@ -81,6 +82,7 @@ namespace ECommerce.Controllers
 
     }
 }
+
 
 
 
