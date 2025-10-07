@@ -11,7 +11,7 @@ namespace ECommerce.Repository
     public interface ICategoryRepo
     {
         public Task<CreateCategoryDto> CreateCategory(string name);
-        public Task<List<Category>> GetCategories();
+        public Task<List<CategoryDto>> GetCategories();
 
     }
     public class CategoryRepo : ICategoryRepo
@@ -37,6 +37,7 @@ namespace ECommerce.Repository
                 category.Name = name;
                 _context.Category.Add(category);
                 _context.SaveChanges();
+                categoryDto.Id = category.Id;
                 categoryDto.Name = name;
                 createCategoryDto.Category = categoryDto;
                 createCategoryDto.Status = Enums.CategoryStatus.Success;
@@ -47,10 +48,11 @@ namespace ECommerce.Repository
         return createCategoryDto;
            }
 
-        public async Task<List<Category>> GetCategories()
+        public async Task<List<CategoryDto>> GetCategories()
         {
-            var getCategoriesList = await _context.Category.ToListAsync();
-           return getCategoriesList;
+            var getCategoriesList = await _context.Category.Include(c => c.Products).ToListAsync();
+            var allCategories =  _mapper.Map<List<CategoryDto>>(getCategoriesList);
+            return allCategories;
         }
     }
 }

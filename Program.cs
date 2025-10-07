@@ -18,7 +18,7 @@ builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(builder.
 builder.Services.AddTransient<IUserLoginRepo, UserLoginRepo>();
 builder.Services.AddTransient<IUserRegisterRepo, UserRegisterRepo>();
 builder.Services.AddTransient<ICategoryRepo, CategoryRepo>();
-
+builder.Services.AddTransient<IProductRepo, ProductRepo>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

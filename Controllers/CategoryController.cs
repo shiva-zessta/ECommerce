@@ -34,7 +34,7 @@ namespace ECommerce.Controllers
                 var response = new
                 {
                     Status = 400,
-                    Message = "Invalid login request. Please check your input.",
+                    Message = "Invalid request. Please check your input.",
                     Errors = errors
                 };
 
@@ -49,7 +49,7 @@ namespace ECommerce.Controllers
         }
 
         [HttpGet]
-        [Route("/all")]
+        [Route("All")]
         public async Task<IActionResult> GetCategoriesList()
         {
             var result = await _catergoryRepo.GetCategories();
