@@ -12,6 +12,7 @@ namespace ECommerce.Repository
     {
         public Task<CreateCategoryDto> CreateCategory(string name);
         public Task<List<CategoryDto>> GetCategories();
+        public Task<CategoryDto> GetCategoryByCategoryId(int categoryId);
 
     }
     public class CategoryRepo : ICategoryRepo
@@ -54,5 +55,17 @@ namespace ECommerce.Repository
             var allCategories =  _mapper.Map<List<CategoryDto>>(getCategoriesList);
             return allCategories;
         }
+
+        public async Task<CategoryDto> GetCategoryByCategoryId(int categoryId)
+        {
+            var categoryById = await _context.Category.Include(c => c.Products).Where(t => t.Id == categoryId).FirstOrDefaultAsync();
+            if(categoryById == null)
+            {
+                return null;
+            }
+            var categoryMapped = _mapper.Map<CategoryDto>(categoryById);
+            return categoryMapped;
+        }
     }
 }
+ 

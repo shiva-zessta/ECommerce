@@ -1,6 +1,7 @@
 ﻿using ECommerce.Dtos;
 using ECommerce.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ECommerce.Controllers
 {
@@ -49,7 +50,35 @@ namespace ECommerce.Controllers
             var result = await _repo.GetAllProducts();
             return Ok(result);
         }
-    
+
+        [HttpGet]
+        [Route(":Id")]
+        public async Task<IActionResult> GetProductById(int productId)
+        {
+            var result = await _repo.GetProductById(productId);
+            var response = new
+            {
+                Data = result,
+            };
+            return Ok(response);
+        }
+
+        [HttpPut]
+        [Route(":Id")]
+        public async Task<IActionResult> UpdateProductById([FromBody] UpdateProductRequestDto updateProductRequestDto)
+        {
+            var result = await _repo.UpdateProductById(updateProductRequestDto.ProductId, updateProductRequestDto.Name, updateProductRequestDto.CategoryId, updateProductRequestDto.Quantity);
+            return Ok(result);
+        }
+
+        [HttpDelete]
+        [Route(":Id")]
+        public async Task<IActionResult> DeleteProductById([FromQuery] int productId)
+        {
+            var result = await _repo.DeleteProductById(productId);
+            return Ok(result);
+        }
+
     }
 
 }

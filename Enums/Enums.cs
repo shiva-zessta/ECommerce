@@ -21,5 +21,14 @@
         Error = 0,
         EmailAlreadyExists = 2
     }
+
+    public enum UpdateProductStatus
+    {
+        Error = 0,
+        Success = 1,
+        CategoryNotExists = 2,
+        QuantityNotValid = 3,
+        ProductNotExists = 4
+    }
 }
 

@@ -45,6 +45,12 @@ namespace ECommerce.Dtos
     {
         public int Id { get; set; }
         public string Name { get; set; }
+    }
+
+    public class CategoryProductListDto
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
         public List<CategoryProductDto> Products { get; set; }
     }
 
@@ -76,6 +82,14 @@ namespace ECommerce.Dtos
         public int Id { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
+    }
+
+    public class UpdateProductRequestDto
+    {
+        public int ProductId { get; set; }
+        public string Name { get; set; }
+        public int Quantity { get; set; }
+        public int CategoryId { get; set; }
     }
 }
 

@@ -55,5 +55,13 @@ namespace ECommerce.Controllers
             var result = await _catergoryRepo.GetCategories();
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route(":Id")]
+        public async Task<IActionResult> CategoryDataById([FromQuery] int categoryId)
+        {
+            var result = await _catergoryRepo.GetCategoryByCategoryId(categoryId);
+            return Ok(result);
+        }
     }
 }
