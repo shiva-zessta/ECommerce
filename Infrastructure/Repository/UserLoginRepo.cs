@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using ECommerce.Dtos;
+using ECommerce.Application.Dtos;
 using ECommerce.Enums;
 using ECommerce.Helper;
-using ECommerce.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommerce.Repository
+namespace ECommerce.Infrastructure.Repository
 {
     public interface IUserLoginRepo
     {
