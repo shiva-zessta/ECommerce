@@ -1,6 +1,6 @@
-﻿using ECommerce.Entities;
+﻿using ECommerce.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-namespace ECommerce.Models
+namespace ECommerce.Infrastructure
 {
     public class MyDbContext : DbContext
     {

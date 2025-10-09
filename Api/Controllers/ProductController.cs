@@ -1,9 +1,9 @@
-﻿using ECommerce.Dtos;
-using ECommerce.Repository;
+﻿using ECommerce.Application.Dtos;
+using ECommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
 
-namespace ECommerce.Controllers
+namespace ECommerce.Api.Controllers
 {
     [ApiController]
     [Route("/Product")]

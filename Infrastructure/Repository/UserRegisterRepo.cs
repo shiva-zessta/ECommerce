@@ -1,10 +1,9 @@
-﻿using ECommerce.Entities;
+﻿using ECommerce.Domain.Entities;
 using ECommerce.Enums;
 using ECommerce.Helper;
-using ECommerce.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ECommerce.Repository
+namespace ECommerce.Infrastructure.Repository
 {
     public interface IUserRegisterRepo
     {

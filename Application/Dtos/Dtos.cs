@@ -1,8 +1,8 @@
-﻿using ECommerce.Entities;
+﻿using ECommerce.Domain.Entities;
 using ECommerce.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace ECommerce.Dtos
+namespace ECommerce.Application.Dtos
 {
     public class PasswordHashResultDto
     {

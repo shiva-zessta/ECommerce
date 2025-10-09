@@ -1,10 +1,10 @@
-﻿using ECommerce.Dtos;
+﻿using ECommerce.Application.Dtos;
 using ECommerce.Enums;
 using ECommerce.Helper;
-using ECommerce.Repository;
+using ECommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECommerce.Controllers
+namespace ECommerce.Api.Controllers
 {
 
     [ApiController]

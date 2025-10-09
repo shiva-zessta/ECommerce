@@ -1,7 +1,7 @@
+using ECommerce.Infrastructure;
+using ECommerce.Infrastructure.Repository;
 using ECommerce.Mapper;
 using ECommerce.Middelware;
-using ECommerce.Models;
-using ECommerce.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 var builder = WebApplication.CreateBuilder(args);

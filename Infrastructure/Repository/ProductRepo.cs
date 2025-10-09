@@ -1,12 +1,11 @@
 ﻿using AutoMapper;
-using ECommerce.Dtos;
-using ECommerce.Entities;
+using ECommerce.Domain.Entities;
 using ECommerce.Enums;
 using ECommerce.Helper;
-using ECommerce.Models;
 using Microsoft.EntityFrameworkCore;
+using ECommerce.Application.Dtos;
 
-namespace ECommerce.Repository
+namespace ECommerce.Infrastructure.Repository
 {
     public interface IProductRepo
     {

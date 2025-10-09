@@ -1,11 +1,10 @@
 ﻿using AutoMapper;
-using ECommerce.Dtos;
-using ECommerce.Entities;
-using ECommerce.Models;
+using ECommerce.Application.Dtos;
+using ECommerce.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
-namespace ECommerce.Repository
+namespace ECommerce.Infrastructure.Repository
 {
 
     public interface ICategoryRepo

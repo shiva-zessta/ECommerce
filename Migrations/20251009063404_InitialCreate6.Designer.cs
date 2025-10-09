@@ -11,8 +11,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ECommerce.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20251006094113_InitialCreate3")]
-    partial class InitialCreate3
+    [Migration("20251009063404_InitialCreate6")]
+    partial class InitialCreate6
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -55,6 +55,9 @@ namespace ECommerce.Migrations
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
 
                     b.HasKey("Id");
 

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using ECommerce.Dtos;
-using ECommerce.Entities;
+using ECommerce.Application.Dtos;
+using ECommerce.Domain.Entities;
 
 namespace ECommerce.Mapper
 {

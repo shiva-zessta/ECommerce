@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ECommerce.Entities
+namespace ECommerce.Domain.Entities
 {
     public class User
     {

@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace ECommerce.Controllers
+namespace ECommerce.Api.Controllers
 {
     [ApiController]
     [Route("[controller]")]
