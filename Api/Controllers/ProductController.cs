@@ -1,4 +1,5 @@
-﻿using ECommerce.Application.Dtos;
+﻿using ECommerce.Application;
+using ECommerce.Application.Dtos;
 using ECommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -9,8 +10,8 @@ namespace ECommerce.Api.Controllers
     [Route("/Product")]
     public class ProductController: ControllerBase
     {
-        private readonly IProductRepo _repo;
-        public ProductController(IProductRepo repo) { _repo = repo; }
+        private readonly ServiceInterfaces.IProductService _services;
+        public ProductController(ServiceInterfaces.IProductService services) { _services = services; }
 
         [HttpPost]
         [Route("Add")]
@@ -34,7 +35,7 @@ namespace ECommerce.Api.Controllers
                 return BadRequest(response);
             }
 
-            var result = await _repo.CreateProduct(createProductRequestDto.Name, createProductRequestDto.CategoryId,createProductRequestDto.Quantity);
+            var result = await _services.AddProduct(createProductRequestDto.Name, createProductRequestDto.CategoryId,createProductRequestDto.Quantity);
             if (result == null)
             {
                 return BadRequest();
@@ -45,29 +46,17 @@ namespace ECommerce.Api.Controllers
 
         [HttpGet]
         [Route("")]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<IActionResult> GetAllProducts([FromQuery] int? productId)
         {
-            var result = await _repo.GetAllProducts();
+            var result = await _services.GetAllProducts(productId);
             return Ok(result);
         }
 
-        [HttpGet]
-        [Route(":Id")]
-        public async Task<IActionResult> GetProductById(int productId)
-        {
-            var result = await _repo.GetProductById(productId);
-            var response = new
-            {
-                Data = result,
-            };
-            return Ok(response);
-        }
-
         [HttpPut]
-        [Route(":Id")]
+        [Route("")]
         public async Task<IActionResult> UpdateProductById([FromBody] UpdateProductRequestDto updateProductRequestDto)
         {
-            var result = await _repo.UpdateProductById(updateProductRequestDto.ProductId, updateProductRequestDto.Name, updateProductRequestDto.CategoryId, updateProductRequestDto.Quantity);
+            var result = await _services.UpdateProductById(updateProductRequestDto.ProductId,  updateProductRequestDto.CategoryId, updateProductRequestDto.Quantity, updateProductRequestDto.Name);
             return Ok(result);
         }
 
@@ -75,7 +64,7 @@ namespace ECommerce.Api.Controllers
         [Route(":Id")]
         public async Task<IActionResult> DeleteProductById([FromQuery] int productId)
         {
-            var result = await _repo.DeleteProductById(productId);
+            var result = await _services.DeleteProductById(productId);
             return Ok(result);
         }
 

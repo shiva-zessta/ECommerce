@@ -68,13 +68,22 @@ namespace ECommerce.Application.Dtos
         public int Quantity { get; set; }
     }
 
-    public class ProductDto
+    public class ProductBaseDto
     {
-        public int Id { get; set; }
         public string Name { get; set; }
         public int Quantity { get; set; }
         public int CategoryId { get; set; }
-        public string CategoryName { get; set; }
+
+    }
+
+    public class ProductDto : ProductBaseDto
+    {
+        public int Id { get; set; }
+    }
+
+    public class CreateProductDto : ProductBaseDto
+    {
+         
     }
 
     public class CategoryProductDto
@@ -87,9 +96,9 @@ namespace ECommerce.Application.Dtos
     public class UpdateProductRequestDto
     {
         public int ProductId { get; set; }
-        public string Name { get; set; }
-        public int Quantity { get; set; }
-        public int CategoryId { get; set; }
+        public string? Name { get; set; } = null;
+        public int? Quantity { get; set; } = null;
+        public int? CategoryId { get; set; } = null;
     }
 }
 

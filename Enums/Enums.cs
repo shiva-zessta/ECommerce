@@ -22,7 +22,7 @@
         EmailAlreadyExists = 2
     }
 
-    public enum UpdateProductStatus
+    public enum ProductStatus
     {
         Error = 0,
         Success = 1,

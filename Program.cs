@@ -1,6 +1,7 @@
-using ECommerce.Infrastructure;
+using ECommerce.Application;
+using ECommerce.Application.Services;
+using ECommerce.Infrastructure.Persistence;
 using ECommerce.Infrastructure.Repository;
-using ECommerce.Mapper;
 using ECommerce.Middelware;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -20,6 +21,7 @@ builder.Services.AddTransient<IUserLoginRepo, UserLoginRepo>();
 builder.Services.AddTransient<IUserRegisterRepo, UserRegisterRepo>();
 builder.Services.AddTransient<ICategoryRepo, CategoryRepo>();
 builder.Services.AddTransient<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<ServiceInterfaces.IProductService, ProductService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
