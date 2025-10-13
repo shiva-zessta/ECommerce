@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using ECommerce.Application.Dtos;
 using ECommerce.Domain.Entities;
+using ECommerce.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 

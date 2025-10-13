@@ -2,7 +2,7 @@
 using ECommerce.Application.Dtos;
 using ECommerce.Domain.Entities;
 
-namespace ECommerce.Mapper
+namespace ECommerce.Infrastructure.Profiles
 {
     public class MappingProfile : Profile
     {
@@ -10,8 +10,7 @@ namespace ECommerce.Mapper
         {
             CreateMap<User, UserDto>();
             CreateMap<Category, CategoryDto>();
-            CreateMap<Product, ProductDto>()
-                .ForMember(dest => dest.CategoryName, opt => opt.MapFrom(source => source.Category.Name));
+            CreateMap<Product, ProductDto>();
             CreateMap<Category, CategoryProductListDto>()
                 .ForMember(dest => dest.Products, opt => opt.MapFrom(src => src.Products));
             CreateMap<Product, CategoryProductDto>()

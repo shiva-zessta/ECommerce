@@ -1,6 +1,7 @@
 ﻿using ECommerce.Domain.Entities;
 using ECommerce.Enums;
 using ECommerce.Helper;
+using ECommerce.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Infrastructure.Repository
