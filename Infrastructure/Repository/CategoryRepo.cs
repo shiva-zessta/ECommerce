@@ -7,15 +7,7 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Infrastructure.Repository
 {
-
-    public interface ICategoryRepo
-    {
-        public Task<CreateCategoryDto> CreateCategory(string name);
-        public Task<List<CategoryDto>> GetCategories();
-        public Task<CategoryDto> GetCategoryByCategoryId(int categoryId);
-
-    }
-    public class CategoryRepo : ICategoryRepo
+    public class CategoryRepo : RepositoryInterfaces.ICategoryRepo
     {
         private readonly MyDbContext _context;
 
@@ -25,46 +17,35 @@ namespace ECommerce.Infrastructure.Repository
         {
             _context = myDbContext;
             _mapper = mapper;
-        }
+        } 
 
-        public async Task<CreateCategoryDto> CreateCategory(string name)
+        public async Task<Category> CreateCategory(Category category)
         {
-            var isExisitingCategory = await _context.Category.Where(t => t.Name == name).FirstOrDefaultAsync();
-            CreateCategoryDto createCategoryDto = new CreateCategoryDto();
-            CategoryDto categoryDto = new CategoryDto();
-            if (isExisitingCategory == null)
-            {
-                Category category = new Category();
-                category.Name = name;
                 _context.Category.Add(category);
                 _context.SaveChanges();
-                categoryDto.Id = category.Id;
-                categoryDto.Name = name;
-                createCategoryDto.Category = categoryDto;
-                createCategoryDto.Status = Enums.CategoryStatus.Success;
-                return createCategoryDto;
-            }
-            createCategoryDto.Category = null;
-            createCategoryDto.Status = Enums.CategoryStatus.CategoryAlreadyExists;
-        return createCategoryDto;
-           }
+                return category;
+        }
+     
 
-        public async Task<List<CategoryDto>> GetCategories()
+        public async Task<List<CategoryDto>> GetCategories(int? categoryId)
         {
-            var getCategoriesList = await _context.Category.Include(c => c.Products).ToListAsync();
+            var getCategoriesList = categoryId != null ?
+                await _context.Category.
+                Where(c => c.Id == categoryId).
+                ToListAsync() : 
+                await _context.Category.
+                ToListAsync();
             var allCategories =  _mapper.Map<List<CategoryDto>>(getCategoriesList);
             return allCategories;
         }
-
-        public async Task<CategoryDto> GetCategoryByCategoryId(int categoryId)
+        public async Task<List<CategoryProductListDto>> GetProductsOfCategoryById(int categoryId)
         {
-            var categoryById = await _context.Category.Include(c => c.Products).Where(t => t.Id == categoryId).FirstOrDefaultAsync();
-            if(categoryById == null)
-            {
-                return null;
-            }
-            var categoryMapped = _mapper.Map<CategoryDto>(categoryById);
-            return categoryMapped;
+            var getCategoriesList = await _context.Category.
+                Where(c => c.Id == categoryId).
+                Include(p => p.Products).
+                ToListAsync();
+            var allCategories = _mapper.Map<List<CategoryProductListDto>>(getCategoriesList);
+            return allCategories;
         }
     }
 }

@@ -45,7 +45,7 @@ namespace ECommerce.Api.Controllers
         }
 
         [HttpGet]
-        [Route("")]
+        [Route(":id")]
         public async Task<IActionResult> GetAllProducts([FromQuery] int? productId)
         {
             var result = await _services.GetAllProducts(productId);

@@ -1,6 +1,7 @@
 ﻿using ECommerce.Application.Dtos;
 using ECommerce.Enums;
 using ECommerce.Helper;
+using System.Threading.Tasks;
 
 namespace ECommerce.Application
 {
@@ -13,5 +14,14 @@ namespace ECommerce.Application
             public Task<ResponseHandler<ProductStatus, ProductDto>> UpdateProductById(int productId, int? categoryId, int? quantity, string? name);
             public Task<ResponseHandler<ProductStatus, ProductDto>> DeleteProductById(int productId);
         }
+
+        public interface ICategoryServices
+        {
+            public Task<ResponseHandler<CategoryStatus, CategoryDto>> AddCategory(string categoryName);
+            public Task<ResponseHandler<CategoryStatus, List<CategoryDto>>> GetAllCategories(int? categoryId);
+            public Task<ResponseHandler<CategoryStatus, List<CategoryProductListDto>>> GetProductsOfCategoriesById(int categoryId);
+
+        }
+
     }
 }

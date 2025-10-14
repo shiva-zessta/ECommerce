@@ -1,5 +1,6 @@
 using ECommerce.Application;
 using ECommerce.Application.Services;
+using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Persistence;
 using ECommerce.Infrastructure.Repository;
 using ECommerce.Middelware;
@@ -17,11 +18,12 @@ builder.Services.AddSwaggerGen(c =>
 builder.Services.AddAuthorization();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddTransient<IUserLoginRepo, UserLoginRepo>();
-builder.Services.AddTransient<IUserRegisterRepo, UserRegisterRepo>();
-builder.Services.AddTransient<ICategoryRepo, CategoryRepo>();
-builder.Services.AddTransient<IProductRepo, ProductRepo>();
+builder.Services.AddScoped<IUserLoginRepo, UserLoginRepo>();
+builder.Services.AddScoped<IUserRegisterRepo, UserRegisterRepo>();
+builder.Services.AddScoped<RepositoryInterfaces.ICategoryRepo, CategoryRepo>();
+builder.Services.AddScoped<RepositoryInterfaces.IProductRepo, ProductRepo>();
 builder.Services.AddScoped<ServiceInterfaces.IProductService, ProductService>();
+builder.Services.AddScoped<ServiceInterfaces.ICategoryServices, CategoryService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -1,6 +1,8 @@
-﻿using ECommerce.Application.Dtos;
+﻿using ECommerce.Application;
+using ECommerce.Application.Dtos;
 using ECommerce.Enums;
 using ECommerce.Helper;
+using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Repository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -12,15 +14,17 @@ namespace ECommerce.Api.Controllers
 
     public class CategoryController : ControllerBase
     {
-        private readonly ICategoryRepo _catergoryRepo;
+        private readonly RepositoryInterfaces.ICategoryRepo _catergoryRepo;
+        private readonly ServiceInterfaces.ICategoryServices _categoryServices;
 
-        public CategoryController(ICategoryRepo categoryRepo)
+        public CategoryController(RepositoryInterfaces.ICategoryRepo categoryRepo, ServiceInterfaces.ICategoryServices categoryServices)
         {
             _catergoryRepo = categoryRepo;
+            _categoryServices = categoryServices;
         }
 
         [HttpPost]
-        [Route("Create")]
+        [Route("")]
 
       public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryRequestDto createCategoryRequestDto)
         {
@@ -40,27 +44,23 @@ namespace ECommerce.Api.Controllers
 
                 return BadRequest(response);
             }
-            var result = await _catergoryRepo.CreateCategory(createCategoryRequestDto.Name);
-            ResponseHandler<CategoryStatus, CreateCategoryDto> resHandler = new ResponseHandler<CategoryStatus, CreateCategoryDto>();
-            resHandler.Status = CategoryStatus.Success;
-            resHandler.Message = "Category created successfully";
-            resHandler.Data = result;
+            var result = await _categoryServices.AddCategory(createCategoryRequestDto.Name);
             return Ok(result);
         }
 
         [HttpGet]
-        [Route("All")]
-        public async Task<IActionResult> GetCategoriesList()
+        [Route(":id")]
+        public async Task<IActionResult> GetCategoriesList(int? categoryId)
         {
-            var result = await _catergoryRepo.GetCategories();
+            var result = await _categoryServices.GetAllCategories(categoryId);
             return Ok(result);
         }
 
         [HttpGet]
-        [Route(":Id")]
-        public async Task<IActionResult> CategoryDataById([FromQuery] int categoryId)
+        [Route("productsList/:id")]
+        public async Task<IActionResult> GetProductsOfCategoryById(int categoryId)
         {
-            var result = await _catergoryRepo.GetCategoryByCategoryId(categoryId);
+            var result = await _categoryServices.GetProductsOfCategoriesById(categoryId);
             return Ok(result);
         }
     }
