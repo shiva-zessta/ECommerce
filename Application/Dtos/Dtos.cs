@@ -53,7 +53,20 @@ namespace ECommerce.Application.Dtos
         public string Name { get; set; }
         public List<CategoryProductDto> Products { get; set; }
     }
+    public class AuthResponseDto
+    {
+        public int UserId { get; set; }
+        public string Email { get; set; } = null!;
+        public string Token { get; set; } = null!;
+    }
 
+    public enum UserOperationStatus
+    {
+        Error,
+        Success,
+        InvalidCredentials,
+        EmailAlreadyExists,
+    }
     public class CreateCategoryDto
     {
         public CategoryDto Category { get; set; }
