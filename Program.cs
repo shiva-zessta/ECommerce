@@ -62,8 +62,6 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddDbContext<MyDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddScoped<IUserLoginRepo, UserLoginRepo>();
-builder.Services.AddScoped<IUserRegisterRepo, UserRegisterRepo>();
 builder.Services.AddScoped<RepositoryInterfaces.ICategoryRepo, CategoryRepo>();
 builder.Services.AddScoped<RepositoryInterfaces.IProductRepo, ProductRepo>();
 builder.Services.AddScoped<ServiceInterfaces.IProductService, ProductService>();

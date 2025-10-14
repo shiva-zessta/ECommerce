@@ -62,10 +62,10 @@ namespace ECommerce.Application.Dtos
 
     public enum UserOperationStatus
     {
+        Error,
         Success,
         InvalidCredentials,
         EmailAlreadyExists,
-        Error
     }
     public class CreateCategoryDto
     {
