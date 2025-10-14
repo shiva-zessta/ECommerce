@@ -2,8 +2,8 @@
 using ECommerce.Domain.Entities;
 using ECommerce.Enums;
 using ECommerce.Helper;
+using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Persistence;
-using ECommerce.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Application.Services
@@ -11,9 +11,9 @@ namespace ECommerce.Application.Services
     
     public class ProductService : ServiceInterfaces.IProductService
     {
-        private readonly IProductRepo _productRepo;
+        private readonly RepositoryInterfaces.IProductRepo _productRepo;
         private readonly MyDbContext _context;
-        public ProductService(IProductRepo productRepo, MyDbContext context)
+        public ProductService(RepositoryInterfaces.IProductRepo productRepo, MyDbContext context)
         {
             _context = context;
             _productRepo = productRepo;

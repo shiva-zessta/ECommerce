@@ -6,18 +6,9 @@ using Microsoft.EntityFrameworkCore;
 using ECommerce.Application.Dtos;
 using ECommerce.Infrastructure.Persistence;
 
-
 namespace ECommerce.Infrastructure.Repository
 {
-    public interface IProductRepo
-    {
-        public Task<ProductDto> CreateProduct(string name, int categoryId, int quantity);
-        public Task<List<ProductDto>> GetAllProducts(int? productId);
-        public Task<ProductDto> GetProductById(int productId);
-        public Task<ProductDto> UpdateProductById(Product productDto);
-        public Task<ProductStatus> DeleteProductById(int productId);
-    }
-    public class ProductRepo: IProductRepo
+    public class ProductRepo: RepositoryInterfaces.IProductRepo
     {
         private readonly MyDbContext _context;
         private readonly IMapper _mapper;
@@ -60,21 +51,7 @@ namespace ECommerce.Infrastructure.Repository
             var productDto = _mapper.Map<List<ProductDto>>(allProducts);
             return productDto;
         }
-
-        public async Task<ProductDto> GetProductById(int productId)
-        {
-            var productData = await _context.Product
-               .Include(c => c.Category)
-               .Where(p => p.Id == productId)
-               .FirstOrDefaultAsync();
-            if(productData == null)
-            {
-                return null;
-            }
-            var productMapped = _mapper.Map<ProductDto>(productData);
-            return productMapped;
-        }
-
+        
         public async Task<ProductDto> UpdateProductById(Product productData)
         {
             var responseHandler = new ResponseHandler<ProductStatus, ProductDto>();
