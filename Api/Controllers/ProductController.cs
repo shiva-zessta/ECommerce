@@ -1,11 +1,13 @@
 ﻿using ECommerce.Application;
 using ECommerce.Application.Dtos;
 using ECommerce.Infrastructure.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace ECommerce.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("/Product")]
     public class ProductController: ControllerBase

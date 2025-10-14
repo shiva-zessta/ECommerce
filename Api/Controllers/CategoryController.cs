@@ -4,11 +4,13 @@ using ECommerce.Enums;
 using ECommerce.Helper;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Repository;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("/Category")]
 
