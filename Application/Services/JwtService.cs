@@ -36,7 +36,7 @@ namespace ECommerce.Application.Services
                 issuer: _config["Jwt:Issuer"],
                 audience: _config["Jwt:Audience"],
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(double.Parse(_config["Jwt:ExpiryMinutes"])),
+                expires: DateTime.Now.AddDays(10),
                 signingCredentials: creds
             );
 

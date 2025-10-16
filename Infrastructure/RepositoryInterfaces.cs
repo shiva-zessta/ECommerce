@@ -19,5 +19,11 @@ namespace ECommerce.Infrastructure
             public Task<List<CategoryDto>> GetCategories(int? categoryId);
             public Task<List<CategoryProductListDto>> GetProductsOfCategoryById(int categoryId);
         }
+        public interface IAddressRepo
+        {
+            public Task<Address> AddAddress(Address addressDto);
+            public Task<List<Address>> GetAddress();
+            public Task<Address> UpdateAddress(Address address);
+        }
     }
 }
