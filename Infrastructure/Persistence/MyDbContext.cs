@@ -10,6 +10,7 @@ namespace ECommerce.Infrastructure.Persistence
         public DbSet<Category> Category { get; set; }
 
         public DbSet<Product> Product { get; set; }
+        public DbSet<Address> Address { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -28,6 +29,15 @@ namespace ECommerce.Infrastructure.Persistence
             {
                 t.HasKey(e => e.Id);
                 t.Property(e => e.Id).ValueGeneratedOnAdd();
+            }
+            );
+            modelBuilder.Entity<Address>(t =>
+            {
+                t.HasKey(e => e.Id);
+                t.Property(e => e.Id).ValueGeneratedOnAdd();
+                t.HasOne(a => a.User)
+                .WithMany(a => a.Addresses)
+                .HasForeignKey(a => a.UserId);
             }
             );
 
@@ -50,6 +60,7 @@ namespace ECommerce.Infrastructure.Persistence
                     .HasForeignKey(p => p.CategoryId);
             }
             );
+
         }
     }
 }
