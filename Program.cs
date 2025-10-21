@@ -1,3 +1,4 @@
+using CommServer.Services;
 using ECommerce.Application;
 using ECommerce.Application.Services;
 using ECommerce.Helper;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
+using static ECommerce.Infrastructure.RepositoryInterfaces;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -51,7 +53,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         {
             ValidateIssuer = true,
             ValidateAudience = true,
-            //ValidateLifetime = true,
+            ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
@@ -69,6 +71,10 @@ builder.Services.AddScoped<ServiceInterfaces.ICategoryServices, CategoryService>
 builder.Services.AddScoped<IJwtService, JwtService>();
 builder.Services.AddScoped<IPasswordHashHelper, PasswordHashHelper>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ServiceInterfaces.IAddressServices, AddressService>();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ServiceInterfaces.IUserInfo, HttpUserInfo>();
+builder.Services.AddScoped<RepositoryInterfaces.IAddressRepo, AddressRepo>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -80,11 +86,13 @@ if (app.Environment.IsDevelopment())
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "ECommerce API V1");
     });
 }
-app.UseMiddleware<ResponseHandlerMiddleware>();
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
+
+app.UseMiddleware<ValidateUserMiddleware>();
+app.UseMiddleware<ResponseHandlerMiddleware>();
+
 
 app.UseAuthorization();
 

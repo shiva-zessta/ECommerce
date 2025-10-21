@@ -30,5 +30,17 @@
         QuantityNotValid = 3,
         ProductNotExists = 4
     }
+    public enum AddressType
+    {
+        Shipping,
+        Billing,
+        Home,
+        Work
+    }
+    public enum AddressStatus
+    {
+        Error,
+        Success,
+    }
 }
 
