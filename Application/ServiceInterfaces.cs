@@ -28,6 +28,7 @@ namespace ECommerce.Application
             public Task<ResponseHandler<AddressStatus, AddressDto>> AddAddress(CreateAddressRequestDto createAddressRequestDto);
             public Task<ResponseHandler<AddressStatus, List<AddressDto>>> GetAddress();
             public Task<ResponseHandler<AddressStatus, AddressDto>> UpdateAddress(UpdateRequestDto updateRequestDto);
+            public Task<ResponseHandler<AddressStatus, AddressDto>> DeleteAddress(int addressId);
         }
 
         public interface IUserInfo

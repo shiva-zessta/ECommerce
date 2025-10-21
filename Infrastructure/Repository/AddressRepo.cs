@@ -34,5 +34,11 @@ namespace ECommerce.Infrastructure.Repository
             return address;
         }
 
+        public async Task<Address> DeleteAddress(Address address)
+        {
+            var result = _context.Address.Remove(address);
+            await _context.SaveChangesAsync();
+            return null;
+        }
     }
 }

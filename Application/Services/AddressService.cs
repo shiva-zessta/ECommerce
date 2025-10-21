@@ -5,6 +5,7 @@ using ECommerce.Enums;
 using ECommerce.Helper;
 using ECommerce.Infrastructure;
 using ECommerce.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace ECommerce.Application.Services
 {
@@ -64,6 +65,10 @@ namespace ECommerce.Application.Services
             {
                 return BuildResponse<AddressStatus, AddressDto>("Address doesnt exists", AddressStatus.Error, 400);
             }
+            if(addressData.UserId != _userInfo.UserId)
+            {
+                return BuildResponse<AddressStatus, AddressDto>("You are not authorized to update this address.", AddressStatus.Error, 403);
+            }
             addressData.Street = !string.IsNullOrWhiteSpace(updateRequestDto.Street)
                         ? updateRequestDto.Street
                         : addressData.Street;
@@ -86,6 +91,22 @@ namespace ECommerce.Application.Services
             var result = await _addressRepo.UpdateAddress(addressData);
             var mappedResult = _mapper.Map<AddressDto>(result);
             return BuildResponse<AddressStatus, AddressDto>("Success", AddressStatus.Success, 200, mappedResult);
+
+        }
+
+        public async Task<ResponseHandler<AddressStatus, AddressDto>> DeleteAddress(int addressId)
+        {
+            var addressData = await _context.Address.FindAsync(addressId);
+            if(addressData == null)
+            {
+                return BuildResponse<AddressStatus, AddressDto>("Address doesnt exists", AddressStatus.Error, 400);
+            }
+            if (addressData.UserId != _userInfo.UserId)
+            {
+                return BuildResponse<AddressStatus, AddressDto>("You are not authorized to update this address.", AddressStatus.Error, 403);
+            }
+            var result = await _addressRepo.DeleteAddress(addressData);
+            return BuildResponse<AddressStatus, AddressDto>("Address deleted successfully", AddressStatus.Success, 200);
 
         }
     }

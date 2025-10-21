@@ -24,6 +24,7 @@ namespace ECommerce.Infrastructure
             public Task<Address> AddAddress(Address addressDto);
             public Task<List<Address>> GetAddress();
             public Task<Address> UpdateAddress(Address address);
+            public Task<Address> DeleteAddress(Address address);
         }
     }
 }

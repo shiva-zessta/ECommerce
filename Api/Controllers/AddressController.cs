@@ -44,5 +44,13 @@ namespace ECommerce.Api.Controllers
             var result = await _addressService.UpdateAddress(updateRequestDto);
             return Ok(result);
         }
+
+        [HttpDelete]
+        [Route("")]
+        public async Task<IActionResult> DeleteAddress([FromQuery] int addressId)
+        {
+            var result = await _addressService.DeleteAddress(addressId);
+            return Ok(result);
+        }
     }
 }
